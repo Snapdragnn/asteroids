@@ -33,7 +33,7 @@ def main():
     
     AsteroidField()
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
-    lives = 3
+    lives = 3000
 
     while True:
         log_state()
@@ -49,11 +49,13 @@ def main():
                 log_event("player_hit")
                 lives -= 1
                 asteroid.kill()
+                Explosion(asteroid.position)
                 hud.update_lives(-1)
+                Explosion(player.position)
                 if lives <= 0:
                     print("Game over!")
                     sys.exit()
-                    
+
         for asteroid in asteroids:
             for shot in shots:
                 if CircleShape.collides_with(asteroid, shot) == True:
