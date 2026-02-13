@@ -10,14 +10,10 @@ from asteroidfield import *
 from explosion import *
 
 def main():
-    print("Starting Asteroids with pygame version: 2.6.1")
-    print(f"Screen width: {SCREEN_WIDTH}")
-    print(f"Screen height: {SCREEN_HEIGHT}")
-    
+
     pygame.init()
     
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    
     clock = pygame.time.Clock()
     dt = 0
 
@@ -25,8 +21,8 @@ def main():
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
     shots = pygame.sprite.Group()
+    
     hud = Hud(10, 10)
-
     drawable.add(hud)
 
     Player.containers = (updatable, drawable)
@@ -34,7 +30,6 @@ def main():
     AsteroidField.containers = (updatable,)
     Shot.containers = (shots, updatable, drawable)
     Explosion.containers = (updatable, drawable)
-    
     
     AsteroidField()
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
@@ -58,6 +53,7 @@ def main():
                 if lives <= 0:
                     print("Game over!")
                     sys.exit()
+                    
         for asteroid in asteroids:
             for shot in shots:
                 if CircleShape.collides_with(asteroid, shot) == True:
